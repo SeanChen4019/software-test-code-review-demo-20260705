@@ -19,3 +19,7 @@ class CartItem:
 def calculate_subtotal(items: list[CartItem]) -> Decimal:
     return sum((item.line_total() for item in items), Decimal("0"))
 
+
+def calculate_final_price(items: list[CartItem], discount_rate: float) -> Decimal:
+    subtotal = float(calculate_subtotal(items))
+    return Decimal(str(subtotal * (1 - discount_rate)))

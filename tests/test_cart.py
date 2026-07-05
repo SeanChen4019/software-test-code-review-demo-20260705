@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from src.cart import CartItem, calculate_subtotal
+from src.cart import CartItem, calculate_final_price, calculate_subtotal
 
 
 class CartCalculationTest(unittest.TestCase):
@@ -19,7 +19,14 @@ class CartCalculationTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             item.line_total()
 
+    def test_calculate_final_price_with_discount(self):
+        items = [
+            CartItem("book", Decimal("20.00"), 1),
+            CartItem("coupon item", Decimal("10.00"), 1),
+        ]
+
+        self.assertEqual(calculate_final_price(items, 0.5), Decimal("15.00"))
+
 
 if __name__ == "__main__":
     unittest.main()
-
